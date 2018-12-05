@@ -1,5 +1,7 @@
 defmodule Binance.Request do
-  @moduledoc false
+  @moduledoc """
+  Module for making requests to binance
+  """
 
   @endpoint "https://api.binance.com"
 

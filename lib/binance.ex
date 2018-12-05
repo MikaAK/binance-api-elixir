@@ -1,4 +1,8 @@
 defmodule Binance do
+  @moduledoc """
+  Main module that interacts with Binance
+  """
+
   import Binance.UserConfig, only: [
     get_secret_key: 1,
     get_secret_key: 0,

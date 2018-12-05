@@ -1,4 +1,9 @@
 defmodule Binance.UserConfig do
+  @moduledoc """
+  Module for fetching `secret_key` and `api_key` from either a singular config or a
+  multi-user configuration
+  """
+
   defmodule KeyValidationError do
     defexception [:message]
   end
