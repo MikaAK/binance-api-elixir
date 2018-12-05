@@ -403,7 +403,13 @@ defmodule Binance do
     )
   end
 
-  def create_order(%OrderConfig{symbol: symbol} = order_config, secret_key, api_key) do
+  def create_order(
+    %OrderConfig{
+      symbol: %TradePair{} = symbol
+    } = order_config,
+    secret_key,
+    api_key
+  ) do
     with {:ok, symbol} <- TradePair.find_symbol(symbol) do
       order_config
         |> Map.put(:symbol, symbol)
