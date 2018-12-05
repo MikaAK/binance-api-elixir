@@ -18,11 +18,11 @@ defmodule Binance.UserConfig do
   end
 
   def get_api_key do
-    validate_key(Application.get_env(@app_name, :secret_key))
+    validate_key(Application.get_env(@app_name, :api_key))
   end
 
   def get_api_key(user) do
-    get_and_validate_key(Application.get_env(@app_name, user), :secret_key)
+    get_and_validate_key(Application.get_env(@app_name, user), :api_key)
   end
 
   defp get_and_validate_key(config, key) when is_map(config) do
