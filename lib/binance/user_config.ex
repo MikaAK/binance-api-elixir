@@ -3,25 +3,26 @@ defmodule Binance.UserConfig do
   Module for fetching `secret_key` and `api_key` from either a singular config or a
   multi-user configuration
   """
+  @app_name :binance_api
 
   defmodule KeyValidationError do
     defexception [:message]
   end
 
   def get_secret_key do
-    validate_key(Application.get_env(:binance, :secret_key))
+    validate_key(Application.get_env(@app_name, :secret_key))
   end
 
   def get_secret_key(user) do
-    get_and_validate_key(Application.get_env(:binance, user), :secret_key)
+    get_and_validate_key(Application.get_env(@app_name, user), :secret_key)
   end
 
   def get_api_key do
-    validate_key(Application.get_env(:binance, :secret_key))
+    validate_key(Application.get_env(@app_name, :secret_key))
   end
 
   def get_api_key(user) do
-    get_and_validate_key(Application.get_env(:binance, user), :secret_key)
+    get_and_validate_key(Application.get_env(@app_name, user), :secret_key)
   end
 
   defp get_and_validate_key(config, key) when is_map(config) do
