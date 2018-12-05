@@ -389,17 +389,17 @@ defmodule Binance do
   """
   def create_order(%OrderConfig{} = order_config) do
     create_order(
+      order_config,
       get_secret_key(),
-      get_api_key(),
-      order_config
+      get_api_key()
     )
   end
 
   def create_order(%OrderConfig{} = order_config, user) when is_user(user) do
     create_order(
+      order_config,
       get_secret_key(user),
-      get_api_key(user),
-      order_config
+      get_api_key(user)
     )
   end
 
