@@ -45,7 +45,7 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
 
       actual = UrlGenerator.build(:get, "/url", params, @secure_opts)
 
-      expected_params = "signature=#{generate_signature(params, @secret_key)}&item=1&recvWindow=#{params["recvWindow"]}&timestamp=#{params["timestamp"]}"
+      expected_params = "item=1&recvWindow=#{params["recvWindow"]}&timestamp=#{params["timestamp"]}&signature=#{generate_signature(params, @secret_key)}"
 
       assert actual === "#{@base_url}/url?#{expected_params}"
     end

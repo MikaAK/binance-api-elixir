@@ -1,4 +1,6 @@
 defmodule BinanceApi.HTTP do
+  require Logger
+
   alias BinanceApi.{Config, HTTP.UrlGenerator}
 
   @opts_definition [
@@ -32,20 +34,30 @@ defmodule BinanceApi.HTTP do
     receive_timeout: non_neg_integer
   ]
 
-  @type http_res :: {:ok, map | list} | {:error, %{code: atom, message: String.t}}
+  @type error :: {:error, %{code: atom, message: String.t}}
+  @type res :: {:ok, map | list} | error
+  @type res_multi :: {:ok, list} | error
+  @type res_single :: {:ok, map} | error
 
   @authorization_failure_error_codes [403]
   @not_found_failure_error_codes [404]
 
+  @spec opts_definitions() :: Keyword.t
   def opts_definitions, do: @opts_definition
 
-  @spec get(String.t, Keyword.t) :: http_res
-  @spec get(String.t, nil | map, Keyword.t) :: http_res
+  @spec build_v1_url(String.t) :: String.t
+  def build_v1_url(path), do: Path.join("/sapi/v1", path)
+
+  @spec build_v3_url(String.t) :: String.t
+  def build_v3_url(path), do: Path.join("/api/v3", path)
+
+  @spec get(String.t, Keyword.t) :: res
+  @spec get(String.t, nil | map, Keyword.t) :: res
   def get(url, params \\ nil, opts) do
     request(:get, url, params, opts)
   end
 
-  @spec post(String.t, nil | map, Keyword.t) :: http_res
+  @spec post(String.t, nil | map, Keyword.t) :: res
   def post(url, body, opts) do
     request(:post, url, body, opts)
   end
@@ -53,6 +65,9 @@ defmodule BinanceApi.HTTP do
   defp request(method, url, body, opts) do
     opts = NimbleOptions.validate!(opts, @opts_definition)
     url = UrlGenerator.build(method, url, body, opts)
+    body = if method === :get, do: nil, else: body
+
+    Logger.debug("BinanceApi making request to #{url}#{if body, do: "\nBody #{inspect body}"}")
 
     res = method
       |> Finch.build(url, build_headers(opts[:api_key]), body)

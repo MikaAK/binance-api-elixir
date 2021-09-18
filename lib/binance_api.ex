@@ -29,7 +29,51 @@ defmodule BinanceApi do
 
   alias BinanceApi.HTTP
 
-  def fetch_account(opts \\ []) do
-    HTTP.get("/api/v3/account", nil, Keyword.merge(opts, [secured?: true]))
-  end
+  # Symbol API
+
+  @spec ticker_price(symbol :: String.t) :: HTTP.res_single
+  @spec ticker_price(symbol :: String.t, HTTP.opts) :: HTTP.res_single
+  @doc "Get the last price for a ticker"
+  defdelegate ticker_price(symbol, opts \\ []), to: BinanceApi.Symbol
+
+  # System API
+
+  @spec ping() :: :pong | HTTP.error
+  @spec ping(HTTP.opts) :: :pong | HTTP.error
+  @doc "Ping Binance servers to get pong"
+  defdelegate ping(opts \\ []), to: BinanceApi.System
+
+  @spec server_time() :: HTTP.res_single
+  @spec server_time(HTTP.opts) :: HTTP.res_single
+  @doc "Server time from Binance"
+  defdelegate server_time(opts \\ []), to: BinanceApi.System
+
+  @spec exchange_info :: HTTP.res_single
+  @spec exchange_info(HTTP.opts) :: HTTP.res_single
+  @doc "Exchange info"
+  defdelegate exchange_info(opts \\ []), to: BinanceApi.System
+
+  @spec system_status() :: HTTP.res_single
+  @spec system_status(HTTP.opts) :: HTTP.res_single
+  @doc "System status"
+  defdelegate system_status(opts \\ []), to: BinanceApi.System
+
+  # Order API
+
+  @spec open_orders() :: HTTP.res_multi
+  @spec open_orders(HTTP.opts) :: HTTP.res_multi
+  @doc "Get all active open orders"
+  defdelegate open_orders(opts \\ []), to: BinanceApi.Order
+
+  @spec open_orders_by_symbol(symbol :: String.t) :: HTTP.res_multi
+  @spec open_orders_by_symbol(symbol :: String.t, HTTP.opts) :: HTTP.res_multi
+  @doc "Get all active open orders for a specific symbol"
+  defdelegate open_orders_by_symbol(symbol, opts \\ []), to: BinanceApi.Order
+
+  # Account Api
+
+  @spec account() :: HTTP.res_single
+  @spec account(HTTP.opts) :: HTTP.res_single
+  @doc "Get account details"
+  defdelegate account(opts \\ []), to: BinanceApi.Account
 end
