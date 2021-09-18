@@ -5,8 +5,11 @@ defmodule BinanceApi.MixProject do
     [
       app: :binance_api,
       version: "0.1.5",
+      description: "Binance API access for elixir, doesn't use structs, includes spot and futures",
+
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
+
       deps: deps(),
       package: package(),
       docs: docs()
