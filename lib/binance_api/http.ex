@@ -57,6 +57,12 @@ defmodule BinanceApi.HTTP do
     request(:get, url, params, opts)
   end
 
+  @spec delete(String.t, Keyword.t) :: res
+  @spec delete(String.t, nil | map, Keyword.t) :: res
+  def delete(url, params \\ nil, opts) do
+    request(:delete, url, params, opts)
+  end
+
   @spec post(String.t, nil | map, Keyword.t) :: res
   def post(url, body, opts) do
     request(:post, url, body, opts)
@@ -65,7 +71,7 @@ defmodule BinanceApi.HTTP do
   defp request(method, url, body, opts) do
     opts = NimbleOptions.validate!(opts, @opts_definition)
     url = UrlGenerator.build(method, url, body, opts)
-    body = if method === :get, do: nil, else: body
+    body = if method in [:get, :delete], do: nil, else: body
 
     Logger.debug("BinanceApi making request to #{url}#{if body, do: "\nBody #{inspect body}"}")
 

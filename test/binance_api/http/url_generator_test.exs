@@ -18,6 +18,12 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
   ]
 
   describe "&build/4" do
+    test "encodes url params with camelCase" do
+      actual = UrlGenerator.build(:get, "/url", %{my_snake_case_item: 1}, @default_opts)
+
+      assert actual === "#{@base_url}/url?mySnakeCaseItem=1"
+    end
+
     test "returns url for GET without signature if non secured?: true" do
       actual = UrlGenerator.build(:get, "/url", %{item: 1}, @default_opts)
 
@@ -28,6 +34,12 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
       actual = UrlGenerator.build(:post, "/url", @params, @default_opts)
 
       assert actual === "#{@base_url}/url"
+    end
+
+    test "returns url for DELETE without signature if non secured?: true" do
+      actual = UrlGenerator.build(:delete, "/url", @params, @default_opts)
+
+      assert actual === "#{@base_url}/url?item=1"
     end
 
     test "returns url for GET without signature if non secured?: true and no params" do
@@ -60,6 +72,20 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
       actual = UrlGenerator.build(:post, "/url", params, @secure_opts)
 
       assert actual === "#{@base_url}/url?signature=#{generate_signature(params, @secret_key)}"
+    end
+
+    test "returns url for DELETE with signature if secured?: true in opts" do
+      params = %{
+        "item" => 1,
+        "timestamp" => System.os_time(:millisecond),
+        "recvWindow" => @secure_opts[:secure_receive_window]
+      }
+
+      actual = UrlGenerator.build(:delete, "/url", params, @secure_opts)
+
+      expected_params = "item=1&recvWindow=#{params["recvWindow"]}&timestamp=#{params["timestamp"]}&signature=#{generate_signature(params, @secret_key)}"
+
+      assert actual === "#{@base_url}/url?#{expected_params}"
     end
   end
 

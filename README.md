@@ -33,6 +33,7 @@ config :binance_api,
 
 - [x] To allow for multiple accounts to be used
 - [ ] Access to trading on the futures API
+- [x] Access to trading on the spot API
 - [x] Access to accounts
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)

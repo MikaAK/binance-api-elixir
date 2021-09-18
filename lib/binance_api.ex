@@ -70,6 +70,16 @@ defmodule BinanceApi do
   @doc "Get all active open orders for a specific symbol"
   defdelegate open_orders_by_symbol(symbol, opts \\ []), to: BinanceApi.Order
 
+  @spec cancel_order(symbol :: String.t, order_id :: String.t) :: HTTP.res_single
+  @spec cancel_order(symbol :: String.t, order_id :: String.t, HTTP.opts) :: HTTP.res_single
+  @doc "Cancels an order for a specific symbol by the `order_id`"
+  defdelegate cancel_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
+
+  @spec open_order(params :: map) :: HTTP.res_single
+  @spec open_order(params :: map, HTTP.opts) :: HTTP.res_single
+  @doc "Opens and order in binance, see: https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#new-order--trade"
+  defdelegate open_order(symbol, opts \\ []), to: BinanceApi.Order
+
   # Account Api
 
   @spec account() :: HTTP.res_single

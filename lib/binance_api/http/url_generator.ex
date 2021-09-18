@@ -19,19 +19,20 @@ defmodule BinanceApi.HTTP.UrlGenerator do
           "timestamp" => DateTime.to_unix(DateTime.utc_now(), :millisecond),
           "recvWindow" => opts[:secure_receive_window]
         }
-          |> Map.merge(body || %{})
+          |> Map.merge(ProperCase.to_camel_case(body || %{}))
           |> URI.encode_query
 
         signature = generate_signature(args_str, opts[:secret_key])
 
 
-        if method === :get do
+        if method in [:get, :delete] do
           "#{url}?#{args_str}&signature=#{signature}"
         else
           "#{url}?signature=#{signature}"
         end
 
-      is_map(body) and method === :get -> "#{url}?#{URI.encode_query(body)}"
+      is_map(body) and method in [:get, :delete] ->
+        "#{url}?#{URI.encode_query(ProperCase.to_camel_case(body))}"
 
       true -> url
     end
