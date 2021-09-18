@@ -4,7 +4,7 @@ defmodule BinanceApi.HTTP do
   @opts_definition [
     secured?: [type: :boolean, default: false],
     secret_key: [type: :string, default: Config.secret_key()],
-    api_token: [type: :string, default: Config.api_key()],
+    api_key: [type: :string, default: Config.api_key()],
     base_url: [type: :string, default: Config.base_url()],
     secure_receive_window: [type: :non_neg_integer, default: Config.secure_receive_window()],
     pool_timeout: [type: :non_neg_integer, default: Config.request_pool_timeout()],
@@ -25,7 +25,7 @@ defmodule BinanceApi.HTTP do
   @type opts :: [
     secured?: boolean,
     secret_key: String.t,
-    api_token: String.t,
+    api_key: String.t,
     base_url: String.t,
     secure_receive_window: non_neg_integer,
     pool_timeout: non_neg_integer,
@@ -37,6 +37,7 @@ defmodule BinanceApi.HTTP do
   @authorization_failure_error_codes [403]
   @not_found_failure_error_codes [404]
 
+  @spec get(String.t, Keyword.t) :: http_res
   @spec get(String.t, nil | map, Keyword.t) :: http_res
   def get(url, params \\ nil, opts) do
     request(:get, url, params, opts)
@@ -52,7 +53,7 @@ defmodule BinanceApi.HTTP do
     url = UrlGenerator.build(method, url, body, opts)
 
     res = method
-      |> Finch.build(url, build_headers(opts[:api_token]), body)
+      |> Finch.build(url, build_headers(opts[:api_key]), body)
       |> Finch.request(BinanceApi.Finch, Keyword.take(opts, [:pool_timeout, :receive_timeout]))
 
     with {:ok, res} <- res do

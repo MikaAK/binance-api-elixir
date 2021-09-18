@@ -15,14 +15,21 @@ def deps do
 end
 ```
 
+### Config
+```elixir
+config :binance_api,
+  api_key: "<BINANCE_API_KEY>",
+  secret_key: "<BINANCE_SECRET_KEY>",
+  base_url: "https://api.binance.com" # default,
+  secure_receive_window: 5_000 # default,
+
+  request: [
+    pool_timeout: 5_000 # default,
+    receive_timeout: 15_000 # default
+  ]
+```
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/binance_api](https://hexdocs.pm/binance_api).
 
-
-### Config
-config :binance_api,
-  api_key: "xxx",
-  secret_key: "xxx"
-```elixir
-```
