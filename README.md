@@ -29,6 +29,12 @@ config :binance_api,
   ]
 ```
 
+### Goals
+
+- [x] To allow for multiple accounts to be used
+- [ ] Access to trading on the futures API
+- [x] Access to accounts
+
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/binance_api](https://hexdocs.pm/binance_api).

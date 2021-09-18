@@ -37,6 +37,8 @@ defmodule BinanceApi.HTTP do
   @authorization_failure_error_codes [403]
   @not_found_failure_error_codes [404]
 
+  def opts_definitions, do: @opts_definition
+
   @spec get(String.t, Keyword.t) :: http_res
   @spec get(String.t, nil | map, Keyword.t) :: http_res
   def get(url, params \\ nil, opts) do
