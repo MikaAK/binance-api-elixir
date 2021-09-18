@@ -10,7 +10,7 @@ by adding `binance_api` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:binance_api, "~> 0.1.0"}
+    {:binance_api, "~> 0.2"}
   ]
 end
 ```
