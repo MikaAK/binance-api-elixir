@@ -1,7 +1,10 @@
 ## Changelog
 
-### V2.1.0
+### V0.2.2
+Fix not including futures base url by default
+
+### V0.2.1
 Adds in the futures api for orders
 
-### V2.0.0
+### V0.2.0
 This version is a complete rewrite that removes the structs and simplifies the logic
