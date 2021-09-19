@@ -38,7 +38,7 @@ defmodule BinanceApi.Order.USDMFuturesTest do
       type: "LIMIT",
       time_in_force: "GTC",
       price: round(String.to_float(price) * 0.50), # 50% of price
-      quantity: "0.00061" # ~ $20
+      quantity: "0.053" # ~ $30
     }, [])
 
     order_id
