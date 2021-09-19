@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.3
+Fix bugs with order creation in spot & futures
+
 ### V0.2.2
 Fix not including futures base url by default
 
