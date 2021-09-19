@@ -31,10 +31,15 @@ defmodule BinanceApi do
 
   # Symbol API
 
-  @spec ticker_price(symbol :: String.t) :: HTTP.res_single
-  @spec ticker_price(symbol :: String.t, HTTP.opts) :: HTTP.res_single
+  @spec futures_ticker_price(symbol :: String.t) :: HTTP.res_single
+  @spec futures_ticker_price(symbol :: String.t, HTTP.opts) :: HTTP.res_single
   @doc "Get the last price for a ticker"
-  defdelegate ticker_price(symbol, opts \\ []), to: BinanceApi.Symbol
+  defdelegate futures_ticker_price(symbol, opts \\ []), to: BinanceApi.Symbol
+
+  @spec spot_ticker_price(symbol :: String.t) :: HTTP.res_single
+  @spec spot_ticker_price(symbol :: String.t, HTTP.opts) :: HTTP.res_single
+  @doc "Get the last price for a ticker"
+  defdelegate spot_ticker_price(symbol, opts \\ []), to: BinanceApi.Symbol
 
   # System API
 
