@@ -52,7 +52,7 @@ defmodule BinanceApi.MixProject do
       groups_for_modules: [
         "Main Modules": [BinanceApi],
         "HTTP Modules": [BinanceApi.HTTP, BinanceApi.HTTP.UrlGenerator],
-        "Request Modules": [BinanceApi.Account, BinanceApi.Order, BinanceApi.System, BinanceApi.Symbol]
+        "Request Modules": [BinanceApi.Account, BinanceApi.Order.Spot, BinanceApi.Order.Futures, BinanceApi.System, BinanceApi.Symbol]
       ]
     ]
   end

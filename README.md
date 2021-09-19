@@ -33,7 +33,7 @@ config :binance_api,
 ### Goals
 
 - [x] To allow for multiple accounts to be used
-- [ ] Access to trading on the futures API
+- [x] Access to trading on the futures API
 - [x] Access to trading on the spot API
 - [x] Access to accounts
 

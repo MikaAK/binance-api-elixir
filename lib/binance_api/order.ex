@@ -16,4 +16,20 @@ defmodule BinanceApi.Order do
   defdelegate spot_open_order(params, opts),
     to: Order.Spot,
     as: :open_order
+
+  defdelegate futures_open_orders(opts),
+    to: Order.USDMFutures,
+    as: :open_orders
+
+  defdelegate futures_open_orders_by_symbol(symbol, opts),
+    to: Order.USDMFutures,
+    as: :open_orders_by_symbol
+
+  defdelegate futures_cancel_order(symbol, order_id, opts),
+    to: Order.USDMFutures,
+    as: :cancel_order
+
+  defdelegate futures_open_order(params, opts),
+    to: Order.USDMFutures,
+    as: :open_order
 end

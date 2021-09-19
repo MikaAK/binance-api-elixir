@@ -85,6 +85,28 @@ defmodule BinanceApi do
   @doc "Opens and order in binance, see: https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#new-order--trade"
   defdelegate spot_open_order(symbol, opts \\ []), to: BinanceApi.Order
 
+  # Futures Order API
+
+  @spec futures_open_orders() :: HTTP.res_multi
+  @spec futures_open_orders(HTTP.opts) :: HTTP.res_multi
+  @doc "Get all active open orders"
+  defdelegate futures_open_orders(opts \\ []), to: BinanceApi.Order
+
+  @spec futures_open_orders_by_symbol(symbol :: String.t) :: HTTP.res_multi
+  @spec futures_open_orders_by_symbol(symbol :: String.t, HTTP.opts) :: HTTP.res_multi
+  @doc "Get all active open orders for a specific symbol"
+  defdelegate futures_open_orders_by_symbol(symbol, opts \\ []), to: BinanceApi.Order
+
+  @spec futures_cancel_order(symbol :: String.t, order_id :: String.t) :: HTTP.res_single
+  @spec futures_cancel_order(symbol :: String.t, order_id :: String.t, HTTP.opts) :: HTTP.res_single
+  @doc "Cancels an order for a specific symbol by the `order_id`"
+  defdelegate futures_cancel_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
+
+  @spec futures_open_order(params :: map) :: HTTP.res_single
+  @spec futures_open_order(params :: map, HTTP.opts) :: HTTP.res_single
+  @doc "Opens and order in binance futures"
+  defdelegate futures_open_order(symbol, opts \\ []), to: BinanceApi.Order
+
   # Account Api
 
   @spec account() :: HTTP.res_single
