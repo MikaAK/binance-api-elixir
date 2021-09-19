@@ -1,1 +1,1 @@
-ExUnit.start(exclude: [:config_needed])
+ExUnit.start(exclude: [:spot_orders, :usdm_orders])
