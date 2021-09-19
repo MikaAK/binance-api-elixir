@@ -100,13 +100,12 @@ defmodule BinanceApi.HTTP do
 
   defp request(method, url, body, opts) do
     opts = NimbleOptions.validate!(opts, @opts_definition)
-    url = UrlGenerator.build(method, url, body, opts)
-    body = if method in [:get, :delete], do: nil, else: body
+    url = UrlGenerator.build(url, body, opts)
 
-    Logger.debug("BinanceApi making request to #{url}#{if body, do: "\nBody #{inspect body}"}")
+    Logger.debug("BinanceApi making request to #{url}#{if body, do: "\nBody: #{inspect body}"}")
 
     res = method
-      |> Finch.build(url, build_headers(opts[:api_key]), body)
+      |> Finch.build(url, build_headers(opts[:api_key]), nil)
       |> Finch.request(BinanceApi.Finch, Keyword.take(opts, [:pool_timeout, :receive_timeout]))
 
     with {:ok, res} <- res do

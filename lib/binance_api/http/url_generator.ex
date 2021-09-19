@@ -4,22 +4,22 @@ defmodule BinanceApi.HTTP.UrlGenerator do
   the url and encoding params onto get requests
   """
 
-  @spec build(:get | :post | :delete, String.t, map | nil, Keyword.t) :: String.t
-  def build(method, url, body, opts) do
+  @spec build(String.t, map | nil, Keyword.t) :: String.t
+  def build(url, body, opts) do
     opts[:base_url]
       |> Path.join(url)
-      |> maybe_add_signature(method, body, opts)
+      |> maybe_add_signature(body, opts)
   end
 
-  @spec build_futures(:get | :post | :delete, String.t, map | nil, Keyword.t) :: String.t
-  def build_futures(method, url, body, opts) do
+  @spec build_futures(String.t, map | nil, Keyword.t) :: String.t
+  def build_futures(url, body, opts) do
     opts[:base_futures_url]
       |> Path.join(url)
-      |> maybe_add_signature(method, body, opts)
+      |> maybe_add_signature(body, opts)
   end
 
   # NOTE: Signature must be at the end of the query params or the request will fails
-  defp maybe_add_signature(url, method, body, opts) do
+  defp maybe_add_signature(url, body, opts) do
     cond do
       opts[:secured?] ->
         args_str = %{
@@ -32,13 +32,9 @@ defmodule BinanceApi.HTTP.UrlGenerator do
         signature = generate_signature(args_str, opts[:secret_key])
 
 
-        if method in [:get, :delete] do
-          "#{url}?#{args_str}&signature=#{signature}"
-        else
-          "#{url}?signature=#{signature}"
-        end
+        "#{url}?#{args_str}&signature=#{signature}"
 
-      is_map(body) and method in [:get, :delete] ->
+      is_map(body) ->
         "#{url}?#{URI.encode_query(ProperCase.to_camel_case(body))}"
 
       true -> url

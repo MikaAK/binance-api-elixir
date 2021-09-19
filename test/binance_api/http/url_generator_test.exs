@@ -17,33 +17,33 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
     base_url: @base_url
   ]
 
-  describe "&build/4" do
+  describe "&build/3" do
     test "encodes url params with camelCase" do
-      actual = UrlGenerator.build(:get, "/url", %{my_snake_case_item: 1}, @default_opts)
+      actual = UrlGenerator.build("/url", %{my_snake_case_item: 1}, @default_opts)
 
       assert actual === "#{@base_url}/url?mySnakeCaseItem=1"
     end
 
     test "returns url for GET without signature if non secured?: true" do
-      actual = UrlGenerator.build(:get, "/url", %{item: 1}, @default_opts)
+      actual = UrlGenerator.build("/url", %{item: 1}, @default_opts)
 
       assert actual === "#{@base_url}/url?item=1"
     end
 
     test "returns url for POST without signature if non secured?: true" do
-      actual = UrlGenerator.build(:post, "/url", @params, @default_opts)
+      actual = UrlGenerator.build("/url", @params, @default_opts)
 
-      assert actual === "#{@base_url}/url"
+      assert actual === "#{@base_url}/url?item=1"
     end
 
     test "returns url for DELETE without signature if non secured?: true" do
-      actual = UrlGenerator.build(:delete, "/url", @params, @default_opts)
+      actual = UrlGenerator.build("/url", @params, @default_opts)
 
       assert actual === "#{@base_url}/url?item=1"
     end
 
     test "returns url for GET without signature if non secured?: true and no params" do
-      actual = UrlGenerator.build(:get, "/url", nil, @default_opts)
+      actual = UrlGenerator.build("/url", nil, @default_opts)
 
       assert actual === "#{@base_url}/url"
     end
@@ -55,7 +55,7 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
         "recvWindow" => @secure_opts[:secure_receive_window]
       }
 
-      actual = UrlGenerator.build(:get, "/url", params, @secure_opts)
+      actual = UrlGenerator.build("/url", params, @secure_opts)
 
       expected_params = "item=1&recvWindow=#{params["recvWindow"]}&timestamp=#{params["timestamp"]}&signature=#{generate_signature(params, @secret_key)}"
 
@@ -69,9 +69,11 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
         "recvWindow" => @secure_opts[:secure_receive_window]
       }
 
-      actual = UrlGenerator.build(:post, "/url", params, @secure_opts)
+      actual = UrlGenerator.build("/url", params, @secure_opts)
 
-      assert actual === "#{@base_url}/url?signature=#{generate_signature(params, @secret_key)}"
+      expected_params = "item=1&recvWindow=#{params["recvWindow"]}&timestamp=#{params["timestamp"]}&signature=#{generate_signature(params, @secret_key)}"
+
+      assert actual === "#{@base_url}/url?#{expected_params}"
     end
 
     test "returns url for DELETE with signature if secured?: true in opts" do
@@ -81,7 +83,7 @@ defmodule BinanceApi.HTTP.UrlGeneratorTest do
         "recvWindow" => @secure_opts[:secure_receive_window]
       }
 
-      actual = UrlGenerator.build(:delete, "/url", params, @secure_opts)
+      actual = UrlGenerator.build("/url", params, @secure_opts)
 
       expected_params = "item=1&recvWindow=#{params["recvWindow"]}&timestamp=#{params["timestamp"]}&signature=#{generate_signature(params, @secret_key)}"
 
