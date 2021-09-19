@@ -4,7 +4,7 @@ defmodule BinanceApi.MixProject do
   def project do
     [
       app: :binance_api,
-      version: "0.2.3",
+      version: "0.2.4",
       description: "Binance API access for elixir, doesn't use structs, includes spot and futures",
 
       elixir: "~> 1.12",
@@ -41,7 +41,7 @@ defmodule BinanceApi.MixProject do
       maintainers: ["Mika Kalathil"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/LearnElixirDev/binance-api-elixir"},
-      files: ~w(mix.exs README.md CHANGELOG.md lib)
+      files: ~w(mix.exs README.md CHANGELOG.md lib config)
     ]
   end
 

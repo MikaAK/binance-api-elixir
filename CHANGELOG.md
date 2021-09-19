@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.4
+Include default config in release
+
 ### V0.2.3
 Fix bugs with order creation in spot & futures
 
