@@ -1,5 +1,7 @@
 # BinanceApi
 
+[![Hex pm](http://img.shields.io/hexpm/v/binance_api.svg?style=flat)](https://hex.pm/packages/binance_api)
+
 Binance api for elixir, includes the ability to utilize futures
 
 ## Installation
