@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.5
+Fix config error
+
 ### V0.2.4
 Include default config in release
 
