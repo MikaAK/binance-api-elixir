@@ -38,10 +38,15 @@ defmodule BinanceApi do
 
   # System API
 
-  @spec ping() :: :pong | HTTP.error
-  @spec ping(HTTP.opts) :: :pong | HTTP.error
+  @spec spot_ping() :: :pong | HTTP.error
+  @spec spot_ping(HTTP.opts) :: :pong | HTTP.error
   @doc "Ping Binance servers to get pong"
-  defdelegate ping(opts \\ []), to: BinanceApi.System
+  defdelegate spot_ping(opts \\ []), to: BinanceApi.System
+
+  @spec futures_ping() :: :pong | HTTP.error
+  @spec futures_ping(HTTP.opts) :: :pong | HTTP.error
+  @doc "Ping Binance servers to get pong"
+  defdelegate futures_ping(opts \\ []), to: BinanceApi.System
 
   @spec server_time() :: HTTP.res_single
   @spec server_time(HTTP.opts) :: HTTP.res_single
@@ -58,27 +63,27 @@ defmodule BinanceApi do
   @doc "System status"
   defdelegate system_status(opts \\ []), to: BinanceApi.System
 
-  # Order API
+  # Spot Order API
 
-  @spec open_orders() :: HTTP.res_multi
-  @spec open_orders(HTTP.opts) :: HTTP.res_multi
+  @spec spot_open_orders() :: HTTP.res_multi
+  @spec spot_open_orders(HTTP.opts) :: HTTP.res_multi
   @doc "Get all active open orders"
-  defdelegate open_orders(opts \\ []), to: BinanceApi.Order
+  defdelegate spot_open_orders(opts \\ []), to: BinanceApi.Order
 
-  @spec open_orders_by_symbol(symbol :: String.t) :: HTTP.res_multi
-  @spec open_orders_by_symbol(symbol :: String.t, HTTP.opts) :: HTTP.res_multi
+  @spec spot_open_orders_by_symbol(symbol :: String.t) :: HTTP.res_multi
+  @spec spot_open_orders_by_symbol(symbol :: String.t, HTTP.opts) :: HTTP.res_multi
   @doc "Get all active open orders for a specific symbol"
-  defdelegate open_orders_by_symbol(symbol, opts \\ []), to: BinanceApi.Order
+  defdelegate spot_open_orders_by_symbol(symbol, opts \\ []), to: BinanceApi.Order
 
-  @spec cancel_order(symbol :: String.t, order_id :: String.t) :: HTTP.res_single
-  @spec cancel_order(symbol :: String.t, order_id :: String.t, HTTP.opts) :: HTTP.res_single
+  @spec spot_cancel_order(symbol :: String.t, order_id :: String.t) :: HTTP.res_single
+  @spec spot_cancel_order(symbol :: String.t, order_id :: String.t, HTTP.opts) :: HTTP.res_single
   @doc "Cancels an order for a specific symbol by the `order_id`"
-  defdelegate cancel_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
+  defdelegate spot_cancel_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
 
-  @spec open_order(params :: map) :: HTTP.res_single
-  @spec open_order(params :: map, HTTP.opts) :: HTTP.res_single
+  @spec spot_open_order(params :: map) :: HTTP.res_single
+  @spec spot_open_order(params :: map, HTTP.opts) :: HTTP.res_single
   @doc "Opens and order in binance, see: https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#new-order--trade"
-  defdelegate open_order(symbol, opts \\ []), to: BinanceApi.Order
+  defdelegate spot_open_order(symbol, opts \\ []), to: BinanceApi.Order
 
   # Account Api
 

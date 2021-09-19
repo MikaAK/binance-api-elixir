@@ -7,6 +7,7 @@ defmodule BinanceApi.HTTP do
     secured?: [type: :boolean, default: false],
     secret_key: [type: :string, default: Config.secret_key()],
     api_key: [type: :string, default: Config.api_key()],
+    base_futures_url: [type: :string, default: Config.base_futures_url()],
     base_url: [type: :string, default: Config.base_url()],
     secure_receive_window: [type: :non_neg_integer, default: Config.secure_receive_window()],
     pool_timeout: [type: :non_neg_integer, default: Config.request_pool_timeout()],
@@ -28,6 +29,7 @@ defmodule BinanceApi.HTTP do
     secured?: boolean,
     secret_key: String.t,
     api_key: String.t,
+    base_futures_url: String.t,
     base_url: String.t,
     secure_receive_window: non_neg_integer,
     pool_timeout: non_neg_integer,
@@ -45,11 +47,39 @@ defmodule BinanceApi.HTTP do
   @spec opts_definitions() :: Keyword.t
   def opts_definitions, do: @opts_definition
 
+  @spec build_futures_url(String.t) :: String.t
+  def build_futures_url(path), do: Path.join("/fapi/v1", path)
+
   @spec build_v1_url(String.t) :: String.t
   def build_v1_url(path), do: Path.join("/sapi/v1", path)
 
   @spec build_v3_url(String.t) :: String.t
   def build_v3_url(path), do: Path.join("/api/v3", path)
+
+  @spec futures_get(String.t, Keyword.t) :: res
+  @spec futures_get(String.t, nil | map, Keyword.t) :: res
+  def futures_get(url, params \\ nil, opts) do
+    url |> build_futures_url |> get(params, make_futures_request(opts))
+  end
+
+  @spec futures_delete(String.t, Keyword.t) :: res
+  @spec futures_delete(String.t, nil | map, Keyword.t) :: res
+  def futures_delete(url, params \\ nil, opts) do
+    url |> build_futures_url |> delete(params, make_futures_request(opts))
+  end
+
+  @spec futures_post(String.t, nil | map, Keyword.t) :: res
+  def futures_post(url, body, opts) do
+    url |> build_futures_url |> post(body, make_futures_request(opts))
+  end
+
+  defp make_futures_request(opts) do
+    opts = NimbleOptions.validate!(opts, @opts_definition)
+
+    opts
+      |> Keyword.put(:base_url, opts[:base_futures_url])
+      |> Keyword.delete(:base_futures_url)
+  end
 
   @spec get(String.t, Keyword.t) :: res
   @spec get(String.t, nil | map, Keyword.t) :: res

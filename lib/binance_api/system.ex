@@ -1,9 +1,14 @@
 defmodule BinanceApi.System do
   alias BinanceApi.HTTP
 
-  @spec ping(HTTP.opts) :: :pong | HTTP.error
-  def ping(opts) do
+  @spec spot_ping(HTTP.opts) :: :pong | HTTP.error
+  def spot_ping(opts) do
     with {:ok, %{}} <- HTTP.get(HTTP.build_v3_url("/ping"), opts), do: :pong
+  end
+
+  @spec futures_ping(HTTP.opts) :: :pong | HTTP.error
+  def futures_ping(opts) do
+    with {:ok, %{}} <- HTTP.futures_get("/ping", opts), do: :pong
   end
 
   @spec server_time(HTTP.opts) :: HTTP.res_single

@@ -21,6 +21,7 @@ config :binance_api,
   api_key: "<BINANCE_API_KEY>",
   secret_key: "<BINANCE_SECRET_KEY>",
   base_url: "https://api.binance.com" # default,
+  base_futures_url: "https://api.binance.com" # default,
   secure_receive_window: 5_000 # default,
 
   request: [

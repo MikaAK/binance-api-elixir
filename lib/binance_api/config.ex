@@ -6,6 +6,7 @@ defmodule BinanceApi.Config do
   def api_key, do: get_key(:api_key)
   def secret_key, do: get_key(:secret_key)
   def base_url, do: get_key(:base_url)
+  def base_futures_url, do: get_key(:base_futures_url)
   def secure_receive_window, do: get_key(:secure_receive_window)
 
   def request_pool_timeout, do: get_sub_key(:request, :pool_timeout)

@@ -11,6 +11,13 @@ defmodule BinanceApi.HTTP.UrlGenerator do
       |> maybe_add_signature(method, body, opts)
   end
 
+  @spec build_futures(:get | :post | :delete, String.t, map | nil, Keyword.t) :: String.t
+  def build_futures(method, url, body, opts) do
+    opts[:base_futures_url]
+      |> Path.join(url)
+      |> maybe_add_signature(method, body, opts)
+  end
+
   # NOTE: Signature must be at the end of the query params or the request will fails
   defp maybe_add_signature(url, method, body, opts) do
     cond do
