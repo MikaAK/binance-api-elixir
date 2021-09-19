@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.7
+Add futures get ticker function
+
 ### V0.2.5
 Fix config error
 
