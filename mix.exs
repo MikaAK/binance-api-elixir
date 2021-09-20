@@ -50,9 +50,15 @@ defmodule BinanceApi.MixProject do
       main: "BinanceApi",
       source_url: "https://github.com/LearnElixirDev/binance-api-elixir",
       groups_for_modules: [
-        "Main Modules": [BinanceApi],
         "HTTP Modules": [BinanceApi.HTTP, BinanceApi.HTTP.UrlGenerator],
-        "Request Modules": [BinanceApi.Account, BinanceApi.Order.Spot, BinanceApi.Order.Futures, BinanceApi.System, BinanceApi.Symbol]
+        "Request Modules": [
+          BinanceApi.Account,
+          BinanceApi.Order,
+          BinanceApi.Order.Spot,
+          BinanceApi.Order.USDMFutures,
+          BinanceApi.System,
+          BinanceApi.Symbol
+        ]
       ]
     ]
   end
