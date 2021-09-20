@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.8
+Add get_all_orders to Spot and USDMFutures
+
 ### V0.2.7
 Add futures get ticker function
 
