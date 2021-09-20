@@ -1,6 +1,13 @@
 defmodule BinanceApi.Order.Spot do
   alias BinanceApi.HTTP
 
+  @spec all_orders(HTTP.opts) :: HTTP.res_multi
+  def all_orders(opts) do
+    "/allOrders"
+      |> HTTP.build_v3_url
+      |> HTTP.get(Keyword.put(opts, :secured?, true))
+  end
+
   @spec open_orders(HTTP.opts) :: HTTP.res_multi
   def open_orders(opts) do
     "/openOrders"

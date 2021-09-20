@@ -1,6 +1,11 @@
 defmodule BinanceApi.Order.USDMFutures do
   alias BinanceApi.HTTP
 
+  @spec all_orders(HTTP.opts) :: HTTP.res_multi
+  def all_orders(opts) do
+    HTTP.futures_get("/allOrders", Keyword.put(opts, :secured?, true))
+  end
+
   @spec open_orders(HTTP.opts) :: HTTP.res_multi
   def open_orders(opts) do
     HTTP.futures_get("/openOrders", Keyword.put(opts, :secured?, true))
