@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.12
+add find order api for spot and futures
+
 ### V0.2.11
 Fix issue where config sometimes didn't make it in from other apps
 
