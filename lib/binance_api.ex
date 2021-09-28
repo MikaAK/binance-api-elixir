@@ -97,7 +97,11 @@ defmodule BinanceApi do
 
   @spec spot_place_order(params :: map) :: HTTP.res_single
   @spec spot_place_order(params :: map, HTTP.opts) :: HTTP.res_single
-  @doc "Opens and order in binance, see: https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#new-order--trade"
+  @doc """
+  Opens and order in binance see: https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#new-order--trade
+
+  Can also use `BinanceApi.Order.Builder`
+  """
   defdelegate spot_place_order(symbol, opts \\ []), to: BinanceApi.Order
 
   @spec spot_place_orders(params_list :: list(map)) :: HTTP.res_single
@@ -139,12 +143,12 @@ defmodule BinanceApi do
 
   @spec futures_place_order(params :: map) :: HTTP.res_single
   @spec futures_place_order(params :: map, HTTP.opts) :: HTTP.res_single
-  @doc "Opens and order in binance futures"
+  @doc "Opens and order in binance futures (See `BinanceApi.Order.Builder`)"
   defdelegate futures_place_order(symbol, opts \\ []), to: BinanceApi.Order
 
   @spec futures_place_orders(params_list :: list(map)) :: HTTP.res_single
   @spec futures_place_orders(params_list :: list(map), HTTP.opts) :: HTTP.res_single
-  @doc "Opens batch orders in binance"
+  @doc "Opens batch orders in binance (See `BinanceApi.Order.Builder`)"
   defdelegate futures_place_orders(symbol, opts \\ []), to: BinanceApi.Order
 
   # Account Api
