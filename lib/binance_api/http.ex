@@ -4,9 +4,9 @@ defmodule BinanceApi.HTTP do
   alias BinanceApi.{Config, HTTP.UrlGenerator}
 
   @opts_definition [
+    secret_key: [type: :string, required: true],
+    api_key: [type: :string, required: true],
     secured?: [type: :boolean, default: false],
-    secret_key: [type: :string, default: Config.secret_key()],
-    api_key: [type: :string, default: Config.api_key()],
     base_futures_url: [type: :string, default: Config.base_futures_url()],
     base_url: [type: :string, default: Config.base_url()],
     secure_receive_window: [type: :non_neg_integer, default: Config.secure_receive_window()],
@@ -74,7 +74,7 @@ defmodule BinanceApi.HTTP do
   end
 
   defp make_futures_request(opts) do
-    opts = NimbleOptions.validate!(opts, @opts_definition)
+    opts = opts |> add_default_opts |> NimbleOptions.validate!(@opts_definition)
 
     opts
       |> Keyword.put(:base_url, opts[:base_futures_url])
@@ -99,7 +99,7 @@ defmodule BinanceApi.HTTP do
   end
 
   defp request(method, url, body, opts) do
-    opts = NimbleOptions.validate!(opts, @opts_definition)
+    opts = opts |> add_default_opts |> NimbleOptions.validate!(@opts_definition)
     url = UrlGenerator.build(url, body, opts)
 
     Logger.debug("BinanceApi making request to #{url}#{if body, do: "\nBody: #{inspect body}"}")
@@ -111,6 +111,12 @@ defmodule BinanceApi.HTTP do
     with {:ok, res} <- res do
       handle_response(res)
     end
+  end
+
+  defp add_default_opts(opts) do
+    opts
+      |> Keyword.put_new(:api_key, BinanceApi.Config.api_key())
+      |> Keyword.put_new(:secret_key, BinanceApi.Config.secret_key())
   end
 
   defp build_headers(api_key) do
