@@ -10,6 +10,16 @@ defmodule BinanceApi.Order.Spot do
       |> HTTP.get(Keyword.put(opts, :secured?, true))
   end
 
+  @spec find_order(symbol :: String.t, order_id :: non_neg_integer, HTTP.opts) :: HTTP.res_multi
+  def find_order(symbol, order_id, opts) do
+    "/order"
+      |> HTTP.build_v3_url
+      |> HTTP.get(
+        %{symbol: symbol, order_id: order_id},
+        Keyword.put(opts, :secured?, true)
+      )
+  end
+
   @spec open_orders(HTTP.opts) :: HTTP.res_multi
   def open_orders(opts) do
     "/openOrders"

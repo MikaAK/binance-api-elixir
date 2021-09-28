@@ -5,6 +5,10 @@ defmodule BinanceApi.Order do
     to: Order.Spot,
     as: :all_orders
 
+  defdelegate spot_find_order(symbol, order_id, opts),
+    to: Order.Spot,
+    as: :find_order
+
   defdelegate spot_open_orders(opts),
     to: Order.Spot,
     as: :open_orders
@@ -33,6 +37,10 @@ defmodule BinanceApi.Order do
   defdelegate futures_all_orders(opts),
     to: Order.USDMFutures,
     as: :all_orders
+
+  defdelegate futures_find_order(symbol, order_id, opts),
+    to: Order.USDMFutures,
+    as: :find_order
 
   defdelegate futures_open_orders(opts),
     to: Order.USDMFutures,

@@ -75,6 +75,11 @@ defmodule BinanceApi do
   @doc "Get all active all orders"
   defdelegate spot_all_orders(opts \\ []), to: BinanceApi.Order
 
+  @spec spot_find_order(symbol :: String.t, order_id :: non_neg_integer) :: HTTP.res_multi
+  @spec spot_find_order(symbol :: String.t, order_id :: non_neg_integer, HTTP.opts) :: HTTP.res_multi
+  @doc "Get all active all orders"
+  defdelegate spot_find_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
+
   @spec spot_open_orders() :: HTTP.res_multi
   @spec spot_open_orders(HTTP.opts) :: HTTP.res_multi
   @doc "Get all active open orders"
@@ -115,6 +120,11 @@ defmodule BinanceApi do
   @spec futures_all_orders(HTTP.opts) :: HTTP.res_multi
   @doc "Get all active all orders"
   defdelegate futures_all_orders(opts \\ []), to: BinanceApi.Order
+
+  @spec futures_find_order(symbol :: String.t, order_id :: non_neg_integer) :: HTTP.res_multi
+  @spec futures_find_order(symbol :: String.t, order_id :: non_neg_integer, HTTP.opts) :: HTTP.res_multi
+  @doc "Get all active all orders"
+  defdelegate futures_find_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
 
   @spec futures_open_orders() :: HTTP.res_multi
   @spec futures_open_orders(HTTP.opts) :: HTTP.res_multi
