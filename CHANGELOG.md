@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.14
+fix issue with placing batch orders
+
 ### V0.2.12
 add find order api for spot and futures
 
