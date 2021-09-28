@@ -48,11 +48,12 @@ defmodule BinanceApi.Order.Builder do
     }
   end
 
-  def take_profit(price, symbol, side) do
+  def take_profit(price, quantity, symbol, side) do
     %{
       symbol: symbol,
       side: side,
       type: "TAKE_PROFIT_MARKET",
+      quantity: quantity,
       stop_price: price,
       reduce_only: true
     }

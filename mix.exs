@@ -4,7 +4,7 @@ defmodule BinanceApi.MixProject do
   def project do
     [
       app: :binance_api,
-      version: "0.2.10",
+      version: "0.2.11",
       description: "Binance API access for elixir, doesn't use structs, includes spot and futures",
 
       elixir: "~> 1.12",

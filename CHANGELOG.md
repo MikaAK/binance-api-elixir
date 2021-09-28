@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.11
+Fix issue where config sometimes didn't make it in from other apps
+
 ### V0.2.10
 Add BinanceApi.Order.Builder to help with `place_orders`
 
