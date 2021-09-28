@@ -36,7 +36,17 @@ defmodule BinanceApi.Order.Builder do
     }
   end
 
-  def stop_market(price, quantity, symbol, side, stop_price \\ nil) do
+  def stop_market(quantity, symbol, side) do
+    %{
+      symbol: symbol,
+      side: side,
+      type: "STOP_MARKET",
+      quantity: quantity,
+      reduce_only: true
+    }
+  end
+
+  def take_profit(price, quantity, symbol, side, stop_price \\ nil) do
     %{
       symbol: symbol,
       side: side,
@@ -48,23 +58,12 @@ defmodule BinanceApi.Order.Builder do
     }
   end
 
-  def take_profit(price, quantity, symbol, side) do
+  def take_profit_market(quantity, symbol, side) do
     %{
       symbol: symbol,
       side: side,
       type: "TAKE_PROFIT_MARKET",
       quantity: quantity,
-      stop_price: price,
-      reduce_only: true
-    }
-  end
-
-  def take_profit_market(price, symbol, side) do
-    %{
-      symbol: symbol,
-      side: side,
-      type: "TAKE_PROFIT_MARKET",
-      stop_price: price,
       reduce_only: true
     }
   end
@@ -73,7 +72,7 @@ defmodule BinanceApi.Order.Builder do
     %{
       symbol: symbol,
       side: side,
-      type: "TAKE_PROFIT_MARKET",
+      type: "TRAILING_STOP_MARKET",
       callback_rate: callback_rate,
       reduce_only: true
     }

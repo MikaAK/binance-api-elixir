@@ -1,6 +1,9 @@
 ## Changelog
 
 ### V0.2.14
+move logger under verbose flag
+
+### V0.2.13
 fix issue with placing batch orders
 
 ### V0.2.12

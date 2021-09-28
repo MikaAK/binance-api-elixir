@@ -9,6 +9,8 @@ defmodule BinanceApi.Config do
   def base_futures_url, do: get_key(:base_futures_url, "https://fapi.binance.com")
   def secure_receive_window, do: get_key(:secure_receive_window, 5_000)
 
+  def verbose?, do: get_key(:verbose, false)
+
   def request_pool_timeout, do: get_sub_key(:request, :pool_timeout, 5_000)
   def request_receive_timeout, do: get_sub_key(:request, :receive_timeout, 15_000)
 

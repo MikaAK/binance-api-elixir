@@ -102,7 +102,9 @@ defmodule BinanceApi.HTTP do
     opts = opts |> add_default_opts |> NimbleOptions.validate!(@opts_definition)
     url = UrlGenerator.build(url, body, opts)
 
-    Logger.debug("BinanceApi making #{method} request to #{url}#{if body, do: "\nBody: #{inspect body}"}")
+    if Config.verbose?() do
+      Logger.info("BinanceApi making #{method} request to #{url}#{if body, do: "\nBody: #{inspect body}"}")
+    end
 
     res = method
       |> Finch.build(url, build_headers(opts[:api_key]), nil)
