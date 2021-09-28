@@ -1,5 +1,9 @@
 ## Changelog
 
+### V0.2.9
+Add cancel_open_orders to Spot and USDMFutures
+Remove cancel_orders from spot
+
 ### V0.2.8
 Add get_all_orders to Spot and USDMFutures
 
