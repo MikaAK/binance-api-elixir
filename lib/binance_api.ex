@@ -90,10 +90,10 @@ defmodule BinanceApi do
   @doc "Cancels an order for a specific symbol by the `order_id`"
   defdelegate spot_cancel_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
 
-  @spec spot_cancel_orders(order_ids :: list(String.t)) :: HTTP.res_single
-  @spec spot_cancel_orders(order_ids :: list(String.t), HTTP.opts) :: HTTP.res_single
   @doc "Cancels an order for a specific symbol by the `order_id`"
-  defdelegate spot_cancel_orders(order_id, opts \\ []), to: BinanceApi.Order
+  @spec spot_cancel_open_orders(symbol :: String.t) :: HTTP.res
+  @spec spot_cancel_open_orders(symbol :: String.t, HTTP.opts) :: HTTP.res
+  defdelegate spot_cancel_open_orders(symbol, opts \\ []), to: BinanceApi.Order
 
   @spec spot_place_order(params :: map) :: HTTP.res_single
   @spec spot_place_order(params :: map, HTTP.opts) :: HTTP.res_single
@@ -127,10 +127,15 @@ defmodule BinanceApi do
   @doc "Cancels an order for a specific symbol by the `order_id`"
   defdelegate futures_cancel_order(symbol, order_id, opts \\ []), to: BinanceApi.Order
 
-  @spec futures_cancel_orders(order_ids :: list(String.t)) :: HTTP.res_single
-  @spec futures_cancel_orders(order_ids :: list(String.t), HTTP.opts) :: HTTP.res_single
+  @spec futures_cancel_orders(symbol :: String.t, order_ids :: list(non_neg_integer)) :: HTTP.res_single
+  @spec futures_cancel_orders(symbol :: String.t, order_ids :: list(non_neg_integer), HTTP.opts) :: HTTP.res_single
   @doc "Cancels an order for a specific symbol by the `order_id`"
-  defdelegate futures_cancel_orders(order_id, opts \\ []), to: BinanceApi.Order
+  defdelegate futures_cancel_orders(symbol, order_ids, opts \\ []), to: BinanceApi.Order
+
+  @doc "Cancels an order for a specific symbol by the `order_id`"
+  @spec futures_cancel_open_orders(symbol :: String.t) :: HTTP.res
+  @spec futures_cancel_open_orders(symbol :: String.t, HTTP.opts) :: HTTP.res
+  defdelegate futures_cancel_open_orders(symbol, opts \\ []), to: BinanceApi.Order
 
   @spec futures_place_order(params :: map) :: HTTP.res_single
   @spec futures_place_order(params :: map, HTTP.opts) :: HTTP.res_single

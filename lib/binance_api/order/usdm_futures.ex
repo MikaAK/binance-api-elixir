@@ -24,11 +24,20 @@ defmodule BinanceApi.Order.USDMFutures do
     HTTP.futures_delete("/order", %{symbol: symbol, order_id: order_id}, Keyword.put(opts, :secured?, true))
   end
 
-  @spec cancel_orders(order_ids :: list(non_neg_integer), HTTP.opts) :: HTTP.res_multi
-  def cancel_orders(order_ids, opts) when length(order_ids) <= @batch_delete_order_limit do
-    HTTP.futures_post(
+  @spec cancel_orders(symbol :: String.t, order_ids :: list(non_neg_integer), HTTP.opts) :: HTTP.res_multi
+  def cancel_orders(symbol, order_ids, opts) when length(order_ids) <= @batch_delete_order_limit do
+    HTTP.futures_delete(
       "/batchOrders",
-      %{order_id_list: order_ids},
+      %{symbol: symbol, order_id_list: inspect(order_ids)},
+      Keyword.put(opts, :secured?, true)
+    )
+  end
+
+  @spec cancel_open_orders(symbol :: String.t, HTTP.opts) :: HTTP.res_multi
+  def cancel_open_orders(symbol, opts) do
+    HTTP.futures_delete(
+      "/allOpenOrders",
+      %{symbol: symbol},
       Keyword.put(opts, :secured?, true)
     )
   end

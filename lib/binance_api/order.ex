@@ -17,9 +17,9 @@ defmodule BinanceApi.Order do
     to: Order.Spot,
     as: :cancel_order
 
-  defdelegate spot_cancel_orders(order_ids, opts),
+  defdelegate spot_cancel_open_orders(symbol, opts),
     to: Order.Spot,
-    as: :cancel_orders
+    as: :cancel_open_orders
 
   defdelegate spot_place_order(params, opts),
     to: Order.Spot,
@@ -46,9 +46,13 @@ defmodule BinanceApi.Order do
     to: Order.USDMFutures,
     as: :cancel_order
 
-  defdelegate futures_cancel_orders(order_ids, opts),
+  defdelegate futures_cancel_orders(symbol, order_ids, opts),
     to: Order.USDMFutures,
     as: :cancel_orders
+
+  defdelegate futures_cancel_open_orders(symbol, opts),
+    to: Order.USDMFutures,
+    as: :cancel_open_orders
 
   defdelegate futures_place_order(params, opts),
     to: Order.USDMFutures,
