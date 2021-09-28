@@ -60,7 +60,7 @@ defmodule BinanceApi.Order.USDMFutures do
   def place_orders(params_list, opts) when length(params_list) <= @batch_create_order_limit do
     HTTP.futures_post(
       "/batchOrders",
-      %{batch_orders: params_list},
+      %{batch_orders: Jason.encode!(params_list)},
       Keyword.put(opts, :secured?, true)
     )
   end

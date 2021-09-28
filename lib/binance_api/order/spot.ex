@@ -59,7 +59,7 @@ defmodule BinanceApi.Order.Spot do
   def place_orders(params_list, opts) when length(params_list) <= @batch_create_order_limit do
     "/batchOrders"
       |> HTTP.build_v3_url
-      |> HTTP.post(%{batch_orders: params_list}, Keyword.put(opts, :secured?, true))
+      |> HTTP.post(%{batch_orders: Jason.encode!(params_list)}, Keyword.put(opts, :secured?, true))
   end
 end
 
