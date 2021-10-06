@@ -1,5 +1,8 @@
 ## Changelog
 
+### V0.2.15
+add trade list and balances
+
 ### V0.2.14
 move logger under verbose flag
 
