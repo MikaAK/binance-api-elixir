@@ -114,6 +114,14 @@ defmodule BinanceApi do
   @doc "Opens batch orders in binance, see: https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#new-order--trade"
   defdelegate spot_place_orders(symbol, opts \\ []), to: BinanceApi.Order
 
+  @spec spot_trade_list(symbol :: String.t) :: HTTP.res
+  @spec spot_trade_list(symbol :: String.t, params :: map) :: HTTP.res
+  @spec spot_trade_list(symbol :: String.t, params :: map, HTTP.opts) :: HTTP.res
+  defdelegate spot_trade_list(symbol, params \\ %{}, opts \\ []),
+    to: BinanceApi.Order
+
+
+
   # Futures Order API
 
   @spec futures_all_orders() :: HTTP.res_multi
@@ -160,6 +168,16 @@ defmodule BinanceApi do
   @spec futures_place_orders(params_list :: list(map), HTTP.opts) :: HTTP.res_single
   @doc "Opens batch orders in binance (See `BinanceApi.Order.Builder`)"
   defdelegate futures_place_orders(symbol, opts \\ []), to: BinanceApi.Order
+
+  @spec futures_account_balance(HTTP.opts) :: HTTP.res
+  defdelegate futures_account_balance(opts \\ []), to: BinanceApi.Order
+
+  @spec futures_trade_list(symbol :: String.t) :: HTTP.res
+  @spec futures_trade_list(symbol :: String.t, params :: map) :: HTTP.res
+  @spec futures_trade_list(symbol :: String.t, params :: map, HTTP.opts) :: HTTP.res
+  defdelegate futures_trade_list(symbol, params \\ %{}, opts \\ []),
+    to: BinanceApi.Order
+
 
   # Account Api
 

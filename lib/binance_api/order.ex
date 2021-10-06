@@ -33,6 +33,10 @@ defmodule BinanceApi.Order do
     to: Order.Spot,
     as: :place_orders
 
+  defdelegate spot_trade_list(symbol, params, opts),
+    to: Order.Spot,
+    as: :trade_list
+
 
   defdelegate futures_all_orders(opts),
     to: Order.USDMFutures,
@@ -69,4 +73,12 @@ defmodule BinanceApi.Order do
   defdelegate futures_place_orders(params_list, opts),
     to: Order.USDMFutures,
     as: :place_orders
+
+  defdelegate futures_trade_list(symbol, params, opts),
+    to: Order.USDMFutures,
+    as: :trade_list
+
+  defdelegate futures_account_balance(opts),
+    to: Order.USDMFutures,
+    as: :account_balance
 end

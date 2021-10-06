@@ -61,5 +61,14 @@ defmodule BinanceApi.Order.Spot do
       |> HTTP.build_v3_url
       |> HTTP.post(%{batch_orders: Jason.encode!(params_list)}, Keyword.put(opts, :secured?, true))
   end
+
+  @spec trade_list(symbol :: String.t, params :: map, HTTP.opts) :: HTTP.res
+  def trade_list(symbol, params, opts) do
+    params = Map.put(params, :symbol, symbol)
+
+    "/myTrades"
+      |> HTTP.build_v3_url
+      |> HTTP.get(params, Keyword.put(opts, :secured?, true))
+  end
 end
 
